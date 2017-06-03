@@ -21,8 +21,10 @@ import java.util.Random;
 
 public class Test {
     private static final String TAG = "@vir Test";
+
     public static void test(EmotionData emotionData) {
-        for (int i = 0; i < 20; i++) {
+        long time = (long) (System.currentTimeMillis() - EmotionData.MILLS_OF_DAY * 7);
+        while ((time += Math.random() * EmotionData.MAX_GAP * 2) < System.currentTimeMillis()) {
             List<RecognizeResult> recognizeResultList = new ArrayList<>();
             RecognizeResult recognizeResult = new RecognizeResult();
             recognizeResult.scores = new Scores();
@@ -36,12 +38,10 @@ public class Test {
             scores.contempt = Math.random();
             scores.sadness = Math.random();
             recognizeResultList.add(recognizeResult);
-            long randomTime = (long) (EmotionData.MAX_GAP
-                    * i + EmotionData.MAX_GAP * Math.random());
-            Log.d(TAG, String.valueOf(randomTime));
-//            emotionData.addEmotionData(recognizeResultList,randomTime );
+            emotionData.addEmotionData(recognizeResultList, time);
         }
-        EmotionWeekData  weekData = emotionData.getEmotionWeekData(0, true);
+
+//        EmotionWeekData weekData = emotionData.getEmotionWeekData(0, true);
 
 //        EmotionDataEntity emotionDataEntity = emotionData.getLastData();
         Log.d(TAG, String.valueOf(emotionData));
