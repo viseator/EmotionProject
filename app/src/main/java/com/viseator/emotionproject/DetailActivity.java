@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.util.EventLog;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,7 +24,10 @@ public class DetailActivity extends BaseActivity{
     private DetailView detailView;
     private TabLayout tabLayout;
     private float  dY;
+    private float mY;
     private int dNum;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +58,10 @@ public class DetailActivity extends BaseActivity{
         detailView.setItemSelectListener(new DetailView.OnItemSelectListener(){
 
             @Override
-            public void OnItemSelect(float y, int num) {
+            public void OnItemSelect(float y, int num,float YP) {
                 dY=y;
                 dNum=num;
+                mY=YP;
             }
         });
         detailView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -65,23 +71,21 @@ public class DetailActivity extends BaseActivity{
                 LongPressDialog dialog=new LongPressDialog(DetailActivity.this,R.style.Dialog);
                 Window window=dialog.getWindow();
                 WindowManager.LayoutParams layoutParams=window.getAttributes();
-                layoutParams.x=30;
-                int nH=detailView.getMyHeight();
-                float iH=(float) (3*1440)/ dY;
-                layoutParams.y=(int)((float)nH/iH);
+                layoutParams.x=(int)((dNum-4)*(detailView.getDistance()));
+                layoutParams.y= (int) (mY-500);
                 window.setAttributes(layoutParams);
                 dialog.show();
-                Log.w("dY；",String.valueOf(dY));
+                Log.w("mY；",String.valueOf(mY));
                 return false;
             }
         });
-        tabLayout.addTab(tabLayout.newTab().setText("周一"),false);
-        tabLayout.addTab(tabLayout.newTab().setText("周二"),false);
-        tabLayout.addTab(tabLayout.newTab().setText("周三"),false);
-        tabLayout.addTab(tabLayout.newTab().setText("周四"),false);
-        tabLayout.addTab(tabLayout.newTab().setText("周五"),false);
-        tabLayout.addTab(tabLayout.newTab().setText("周六"),false);
-        tabLayout.addTab(tabLayout.newTab().setText("周日"),false);
+        tabLayout.addTab(tabLayout.newTab().setText("MON"),false);
+        tabLayout.addTab(tabLayout.newTab().setText("TUE"),false);
+        tabLayout.addTab(tabLayout.newTab().setText("WED"),false);
+        tabLayout.addTab(tabLayout.newTab().setText("THU"),false);
+        tabLayout.addTab(tabLayout.newTab().setText("FRI"),false);
+        tabLayout.addTab(tabLayout.newTab().setText("SAT"),false);
+        tabLayout.addTab(tabLayout.newTab().setText("SUN"),false);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
     }
