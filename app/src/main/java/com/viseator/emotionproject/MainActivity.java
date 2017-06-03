@@ -78,18 +78,25 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        PieDataSet pieDataSet = new PieDataSet(mEmotionChartData.getMainPieEntries(),"test");
-        pieDataSet.addColor(Color.BLUE);
-        pieDataSet.addColor(Color.GRAY);
+        PieDataSet pieDataSet = new PieDataSet(mEmotionChartData.getMainPieEntries(), "");
+        pieDataSet.setColors(Color.parseColor("#61A5E8"), Color.parseColor("#7ECF51"),
+                Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor
+                        ("#E3935D") , Color.parseColor("#E16757"),Color.parseColor("#605FF0"));
         pieDataSet.setValueTextSize(10);
         PieData pieData = new PieData(pieDataSet);
+        pieData.setDrawValues(false);
         mPieChart.setDrawEntryLabels(true);
-        mPieChart.setEntryLabelTextSize(10);
+        mPieChart.setDescription(null);
+        mPieChart.setHoleRadius(20f);
+        mPieChart.setTransparentCircleRadius(0f);
+        mPieChart.setEntryLabelTextSize(8);
+        mPieChart.animateXY(2000,2000);
         mPieChart.setData(pieData);
 
-        LineDataSet lineDataSet = new LineDataSet(mEmotionChartData.getMainLineEntries(), "test");
+        LineDataSet lineDataSet = new LineDataSet(mEmotionChartData.getMainLineEntries(), "");
         LineData lineData = new LineData(lineDataSet);
         mLineChart.setData(lineData);
+        // TODO: 6/4/17 adjust linechart
     }
 
     private void initDate() {
