@@ -1,12 +1,17 @@
 package com.viseator.emotionproject;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -16,17 +21,33 @@ import com.viseator.emotionproject.adapter.SecondFragment;
 import com.viseator.emotionproject.adapter.ViewPagerAdapter;
 import com.viseator.emotionproject.data.EmotionData;
 import com.viseator.emotionproject.data.chart.EmotionChartData;
+import com.viseator.emotionproject.service.EmotionService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
     private EmotionData mEmotionData;
     private EmotionChartData mEmotionChartData;
     private static final String TAG = "@vir MainActivity";
 
+    private Intent serviceIntent;
+    private EmotionService.ServiceBinder binder = null;
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            binder = (EmotionService.ServiceBinder)iBinder;
+            Log.d(TAG, "onServiceConnected: done");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            Log.d(TAG, "onServiceDisconnected: miss");
+        }
+    };
 
     private void requestCameraPermission() {
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 0);
@@ -42,6 +63,28 @@ public class MainActivity extends BaseActivity {
     private List<String> titles;
     @BindView(R.id.main_piechart)
     PieChart mPieChart;
+
+    @OnClick(R.id.test_button)
+    public void test() {
+        serviceIntent = new Intent(MainActivity.this, EmotionService.class);
+        startService(serviceIntent);
+        bindService(serviceIntent, serviceConnection, BIND_AUTO_CREATE);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (binder == null);
+                EmotionService service = (EmotionService) binder.getService();
+            }
+        }).start();
+
+    }
+
+    @OnClick(R.id.cancel_button)
+    public void cancel() {
+        EmotionService service = (EmotionService) binder.getService();
+        service.stopWork();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,16 +105,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void baseInit() {
-        mEmotionData = EmotionData.getInstance(getEmotionDataEntityDao());
+//        mEmotionData = EmotionData.getInstance(getEmotionDataEntityDao());
 
-        mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
+//        mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
 
     }
 
     @Override
     protected void initView() {
-        mPieChart.setData(new PieData(new PieDataSet(mEmotionChartData.getMainPieEntries(),
-                "test")));
+//        mPieChart.setData(new PieData(new PieDataSet(mEmotionChartData.getMainPieEntries(),
+//                "test")));
     }
 
     private void initDate() {

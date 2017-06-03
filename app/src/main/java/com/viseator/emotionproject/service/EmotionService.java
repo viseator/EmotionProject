@@ -36,6 +36,7 @@ import com.microsoft.projectoxford.emotion.rest.EmotionServiceException;
 import com.microsoft.projectoxford.face.contract.Emotion;
 import com.viseator.emotionproject.App;
 import com.viseator.emotionproject.data.DaoSession;
+import com.viseator.emotionproject.data.EmotionData;
 import com.viseator.emotionproject.data.EmotionDataEntityDao;
 
 import java.io.ByteArrayInputStream;
@@ -55,9 +56,9 @@ public class EmotionService extends Service {
     private AlarmManager alarmManager;
     private Camera camera;
     private PhotoHolder photoHolder;
-    private static ServiceBinder binder;
+    private EmotionData data;
 
-    private class ServiceBinder extends Binder {
+    public class ServiceBinder extends Binder {
         public Service getService() {
             return EmotionService.this;
         }
@@ -65,7 +66,7 @@ public class EmotionService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return binder;
+        return new ServiceBinder();
     }
 
     @Override
@@ -86,14 +87,12 @@ public class EmotionService extends Service {
     }
 
     private void initialService() {
-        if (binder == null) {
-            binder = new ServiceBinder();
-        }
         if (client == null) {
             client = new EmotionServiceRestClient("64130e72f5b34b19b7651c10e21703b4");
         }
         if (entityDao == null) {
             entityDao = getEmotionDataEntityDao();
+            data = EmotionData.getInstance(entityDao);
         }
         if (alarmManager == null) {
             alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -175,6 +174,7 @@ public class EmotionService extends Service {
                 return Boolean.FALSE;
             }
 
+            data.addEmotionData(resultList, System.currentTimeMillis());
             String result = gson.toJson(resultList);
             Log.d("EmotionService", result);
             return Boolean.TRUE;
