@@ -93,7 +93,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         mLineChart.setData(lineData);
         mLineChart.setDescription(null);
         mLineChart.getLegend().setEnabled(false);
-        mLineChart.animateXY(2000,2000);
+        mLineChart.animateY(2000);
         XAxis xAxis = mLineChart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setEnabled(false);
