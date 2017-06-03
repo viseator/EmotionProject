@@ -46,7 +46,7 @@ public class EmotionChartData {
         for (int i = 0; i < 8; i++) {
             if (listData.get(i) != 0) {
                 PieEntry pieEntry = new PieEntry((float) (listData.get(i) / total * 100), EmotionData
-                        .getRankFromId(i));
+                        .getRankFromId(i).toString());
                 pieEntryList.add(pieEntry);
             }
         }

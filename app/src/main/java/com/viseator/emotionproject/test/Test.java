@@ -39,7 +39,7 @@ public class Test {
             long randomTime = (long) (EmotionData.MAX_GAP
                     * i + EmotionData.MAX_GAP * Math.random());
             Log.d(TAG, String.valueOf(randomTime));
-//            emotionData.addEmotionData(recognizeResultList,randomTime );
+            emotionData.addEmotionData(recognizeResultList,randomTime );
         }
         EmotionWeekData  weekData = emotionData.getEmotionWeekData(0, true);
 

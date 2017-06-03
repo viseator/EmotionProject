@@ -17,6 +17,7 @@ import com.viseator.emotionproject.adapter.SecondFragment;
 import com.viseator.emotionproject.adapter.ViewPagerAdapter;
 import com.viseator.emotionproject.data.EmotionData;
 import com.viseator.emotionproject.data.chart.EmotionChartData;
+import com.viseator.emotionproject.test.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,6 @@ public class MainActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDate();
-//        Test.test(emotionData);
 //        Log.d(TAG, EmotionRank.ANGER.toString());
 
         if (!(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)) {
@@ -66,6 +66,8 @@ public class MainActivity extends BaseActivity {
         mEmotionData = EmotionData.getInstance(getEmotionDataEntityDao());
 
         mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
+
+//        Test.test(mEmotionData);
 
     }
 
