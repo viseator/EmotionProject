@@ -1,9 +1,12 @@
 package com.viseator.emotionproject.test;
 
+import android.util.Log;
+
 import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import com.microsoft.projectoxford.emotion.contract.Scores;
 import com.microsoft.projectoxford.face.contract.Emotion;
 import com.viseator.emotionproject.data.EmotionData;
+import com.viseator.emotionproject.data.view.EmotionWeekData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.Random;
  */
 
 public class Test {
+    private static final String TAG = "@vir Test";
     public static void test(EmotionData emotionData) {
         for (int i = 0; i < 20; i++) {
             List<RecognizeResult> recognizeResultList = new ArrayList<>();
@@ -32,10 +36,12 @@ public class Test {
             scores.sadness = Math.random();
             recognizeResultList.add(recognizeResult);
 
-            emotionData.addEmotionData(recognizeResultList, (long) (EmotionData.MILLS_OF_DAY
-                    * i + EmotionData.MILLS_OF_DAY * Math.random()));
+//            emotionData.addEmotionData(recognizeResultList, (long) (EmotionData.MAX_GAP
+//                    * i + EmotionData.MAX_GAP * Math.random()));
         }
+        EmotionWeekData  weekData = emotionData.getEmotionWeekData(0, true);
 
+        Log.d(TAG, String.valueOf(weekData));
 
     }
 }

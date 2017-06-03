@@ -1,6 +1,5 @@
 package com.viseator.emotionproject.data;
 
-import android.support.annotation.ArrayRes;
 import android.util.Log;
 
 import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
@@ -65,9 +64,10 @@ public class EmotionData {
     }
 
     public List<EmotionDataEntity> getEmotionData(long startTime, long endTime) {
-        return (List<EmotionDataEntity>) mEmotionDataEntityDao.queryBuilder().where
-                (EmotionDataEntityDao.Properties.Time.between(startTime, endTime));
+        return mEmotionDataEntityDao.queryBuilder().where
+                (EmotionDataEntityDao.Properties.Time.between(startTime, endTime)).list();
     }
+
 
     public void removeAllData() {
         mEmotionDataEntityDao.deleteAll();
@@ -78,7 +78,7 @@ public class EmotionData {
         List<EmotionDayData> dayDataList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             EmotionDayData emotionDayData = new EmotionDayData();
-            emotionDayData.setEmotionDataList(generateEmotionDataOfDay
+            emotionDayData.setEmotionViewDataList(generateEmotionDataOfDay
                     (startDayTime - MILLS_OF_DAY * i));
             dayDataList.add(emotionDayData);
         }
