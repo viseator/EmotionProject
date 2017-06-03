@@ -60,7 +60,7 @@ public class EmotionChartData {
     }
 
     public List<Entry> getMainLineEntries() {
-        EmotionWeekData emotionWeekData = mEmotionData.getEmotionWeekData(0, false);
+        EmotionWeekData emotionWeekData = mEmotionData.getEmotionWeekData(System.currentTimeMillis(), false);
         List<EmotionDayData> dayDatas = emotionWeekData.getEmotionDayDataList();
         List<Entry> result = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
