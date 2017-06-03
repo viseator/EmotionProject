@@ -63,28 +63,28 @@ public class DetailView extends View {
                     EmotionRank rank= viewData.getRank();
                     switch (rank){
                         case ANGER:
-                            paint.setColor(Color.GREEN);
+                            paint.setColor(Color.parseColor("#FFCD38"));
                             break;
                         case CONTEMPT:
-                            paint.setColor(Color.BLACK);
+                            paint.setColor(Color.parseColor("#FFFE9F"));
                             break;
                         case DISGUST:
-                            paint.setColor(Color.BLUE);
+                            paint.setColor(Color.parseColor("#FFDD67"));
                             break;
                         case SADNESS:
-                            paint.setColor(Color.LTGRAY);
+                            paint.setColor(Color.parseColor("#4A4A4A"));
                             break;
                         case FEAR:
-                            paint.setColor(Color.CYAN);
+                            paint.setColor(Color.parseColor("#FCA180"));
                             break;
                         case NEUTRAL:
-                            paint.setColor(Color.DKGRAY);
+                            paint.setColor(Color.parseColor("#F3F3F3"));
                             break;
                         case SURPRISE:
-                            paint.setColor(Color.MAGENTA);
+                            paint.setColor(Color.parseColor("#FFD480"));
                             break;
                         case HAPPINESS:
-                            paint.setColor(Color.RED);
+                            paint.setColor(Color.parseColor("#F56262"));
                             break;
                     }
                     canvas.drawRect(distance/8+a*x+distance/32,start*3,distance/8+a*x+x-distance/32,end*3,paint);

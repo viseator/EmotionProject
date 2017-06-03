@@ -21,7 +21,7 @@ import java.util.List;
 
 public class EmotionData {
     public static final long MILLS_OF_DAY = 24 * 60 * 60 * 100;
-    public static final long MAX_GAP = 15 * 60 * 100;
+    public static final long MAX_GAP = 30 * 60 * 100;
     private static EmotionData INSTANCE = null;
     private EmotionDataEntityDao mEmotionDataEntityDao;
     private static final String TAG = "@vir EmotionData";

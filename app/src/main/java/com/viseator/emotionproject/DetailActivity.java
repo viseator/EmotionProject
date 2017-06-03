@@ -27,7 +27,7 @@ public class DetailActivity extends BaseActivity{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EmotionData emotionData = EmotionData.getInstance(getEmotionDataEntityDao());
-        weekData= emotionData.getEmotionWeekData(0,false);
+        weekData= emotionData.getEmotionWeekData(System.currentTimeMillis(),false);
         initData();
     }
 
