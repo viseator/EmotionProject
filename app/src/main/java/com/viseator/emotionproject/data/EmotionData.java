@@ -151,8 +151,7 @@ public class EmotionData {
                 totalEmotionData.add(emotionDataEntities.get(i));
             }
             ++i;
-            if (emotionViewData.getStartMins() == emotionViewData.getEndMins() || emotionViewData
-                    .getEndMins() - emotionViewData.getStartMins() < 2 * MAX_GAP) {
+            if (emotionViewData.getStartMins() == emotionViewData.getEndMins() ) {
                 continue;
             }
 
