@@ -29,7 +29,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         initDate();
         EmotionData emotionData = EmotionData.getInstance(getEmotionDataEntityDao());
-        Test.test(emotionData);
 
     }
 
