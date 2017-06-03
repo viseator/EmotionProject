@@ -80,7 +80,7 @@ public class EmotionData {
     public EmotionWeekData getEmotionWeekData(long startDayTime, boolean showRecent) {
         // TODO: 6/3/17 add not show recent
         List<EmotionDayData> dayDataList = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 1; i < 8; i++) {
             EmotionDayData emotionDayData = new EmotionDayData();
             List<EmotionViewData> emotionViewDataList = generateEmotionDataOfDay
                     (startDayTime - MILLS_OF_DAY * i);
