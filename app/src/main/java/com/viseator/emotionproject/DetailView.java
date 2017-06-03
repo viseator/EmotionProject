@@ -27,11 +27,13 @@ public class DetailView extends View {
     private int height=wm.getDefaultDisplay().getHeight();
     private float x=distance/8;
     private OnItemSelectListener listener;
-    float xPress=0,yPress=0;
+    float xPress=0,yPress=0,mY;
     public int getMyHeight(){
         return height;
     }
-
+    public float getDistance(){
+        return distance;
+    }
     public DetailView(Context context, AttributeSet attributeSet){
         super(context,attributeSet);
         paint=new Paint();
@@ -42,7 +44,7 @@ public class DetailView extends View {
     }
 
     public interface OnItemSelectListener{
-        void OnItemSelect(float y,int num);
+        void OnItemSelect(float y,int num,float mY);
     }
 
     public void setItemSelectListener(OnItemSelectListener listener){
@@ -87,7 +89,7 @@ public class DetailView extends View {
                             paint.setColor(Color.parseColor("#F56262"));
                             break;
                     }
-                    canvas.drawRect(distance/8+a*x+distance/40,start*3-7*60*3,distance/8+a*x+x-distance/40,end*3-7*60*3,paint);
+                    canvas.drawRoundRect(distance/8+a*x+distance/40,start*3-7*60*3,distance/8+a*x+x-distance/40,end*3-7*60*3,10,10,paint);
                 }
             }
 
@@ -122,8 +124,9 @@ public class DetailView extends View {
             case MotionEvent.ACTION_DOWN:
                 xPress=event.getX();
                 yPress=event.getY();
+                mY=event.getRawY();
                 int result=dispatchX(xPress);
-                listener.OnItemSelect(yPress,result);
+                listener.OnItemSelect(yPress,result,mY);
                 break;
 
 
