@@ -19,6 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+        </activity>
+
+        <service
+            android:name=".service.EmotionService"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <activity android:name=".DetailActivity"/>
+
+        <activity android:name=".SignInOutActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,11 +37,13 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".service.EmotionService"
-            android:enabled="true"
-            android:exported="true"></service>
-        <activity android:name=".DetailActivity"/>
+        <activity android:name=".AccountPswdActivity"/>
+
+        <provider
+            android:authorities="com.viseator"
+            android:name=".contentProvider.EmotionContentProvider"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
