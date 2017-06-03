@@ -87,21 +87,21 @@ public class DetailView extends View {
                             paint.setColor(Color.parseColor("#F56262"));
                             break;
                     }
-                    canvas.drawRect(distance/8+a*x+distance/32,start*3,distance/8+a*x+x-distance/32,end*3,paint);
+                    canvas.drawRect(distance/8+a*x+distance/40,start*3-7*60*3,distance/8+a*x+x-distance/40,end*3-7*60*3,paint);
                 }
             }
 
         }
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(2);
-        for(int i=0;i<=1440*3;i++){
+        for(int i=1260;i<=3960;i++){
             if((i%45)==0) {
                 if(i%180==0) {
-                    canvas.drawLine(0, i, distance / 25, i, paint);
+                    canvas.drawLine(0, i-7*60*3, distance / 25, i-7*60*3, paint);
                     paint.setTextSize(20);
-                    canvas.drawText(String.valueOf(i/180)+":00",distance/25,i,paint);
+                    canvas.drawText(String.valueOf(i/180)+":00",distance/25,i-7*60*3,paint);
                 }
-                else canvas.drawLine(0, i, distance / 50, i, paint);
+                else canvas.drawLine(0, i-7*60*3, distance / 50, i-7*60*3, paint);
             }
         }
     }
@@ -110,7 +110,7 @@ public class DetailView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width=MeasureSpec.getSize(widthMeasureSpec);
-        int height=1440*3;
+        int height=15*60*3;
         setMeasuredDimension(width,height);
     }
 
