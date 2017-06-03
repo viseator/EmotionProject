@@ -1,8 +1,15 @@
 package com.viseator.emotionproject.data;
 
+import android.support.annotation.ArrayRes;
+
 import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import com.microsoft.projectoxford.emotion.contract.Scores;
+import com.viseator.emotionproject.data.view.EmotionRank;
+import com.viseator.emotionproject.data.view.EmotionViewData;
+import com.viseator.emotionproject.data.view.EmotionWeekData;
+import com.viseator.emotionproject.data.view.TotalEmotionData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +19,8 @@ import java.util.List;
  */
 
 public class EmotionData {
+    private static final long MILLS_OF_DAY = 24 * 60 * 60 * 100;
+    private static final long MAX_GAP = 15 * 60 * 100;
     private static EmotionData INSTANCE = null;
     private EmotionDataEntityDao mEmotionDataEntityDao;
     private static final String TAG = "@vir EmotionData";
@@ -61,8 +70,65 @@ public class EmotionData {
         mEmotionDataEntityDao.deleteAll();
     }
 
-    public void getEmotionViewData(long startDayTime,boolean showRecent) {
+    public EmotionWeekData getEmotionWeekData(long startDayTime, boolean showRecent) {
         // TODO: 6/3/17
+        return null;
     }
 
+    private List<EmotionViewData> generateEmotionDataOfDay(long startDayTime) {
+        List<EmotionDataEntity> emotionDataEntities = getEmotionData(startDayTime,
+                startDayTime + MILLS_OF_DAY);
+        int i = 0;
+        List<EmotionViewData> result = new ArrayList<>();
+        while (i < emotionDataEntities.size()) {
+            EmotionViewData emotionViewData = new EmotionViewData();
+            emotionViewData.setStartMins(startDayTime,emotionDataEntities.get(i).getTime());
+            emotionViewData.setEndMins(startDayTime,emotionDataEntities.get(i).getTime());
+
+            TotalEmotionData totalEmotionData = new TotalEmotionData();
+            totalEmotionData.add(emotionDataEntities.get(i));
+            while (i + 1 < emotionDataEntities.size() && emotionDataEntities.get(i + 1).getTime()
+                    - emotionDataEntities.get(i).getTime() < MAX_GAP) {
+                emotionViewData.setEndMins(startDayTime, emotionDataEntities.get(++i).getTime());
+                totalEmotionData.add(emotionDataEntities.get(i));
+            }
+            ++i;
+            if (emotionViewData.getStartMins() == emotionViewData.getEndMins()) {
+                continue;
+            }
+
+            double maxValue = totalEmotionData.getAnger();
+            EmotionRank emotionRank = EmotionRank.ANGER;
+            if (totalEmotionData.getContempt() > maxValue) {
+                emotionRank = EmotionRank.CONTEMPT;
+                maxValue = totalEmotionData.getContempt();
+            }
+            if (totalEmotionData.getDisgust() > maxValue) {
+                emotionRank = EmotionRank.DISGUST;
+                maxValue = totalEmotionData.getDisgust();
+            }
+            if (totalEmotionData.getFear() > maxValue) {
+                emotionRank = EmotionRank.FEAR;
+                maxValue = totalEmotionData.getFear();
+            }
+            if (totalEmotionData.getHappiness() > maxValue) {
+                emotionRank = EmotionRank.HAPPINESS;
+                maxValue = totalEmotionData.getHappiness();
+            }
+            if (totalEmotionData.getNeutral() > maxValue) {
+                emotionRank = EmotionRank.NEUTRAL;
+                maxValue = totalEmotionData.getNeutral();
+            }
+            if (totalEmotionData.getSurprise() > maxValue) {
+                emotionRank = EmotionRank.SURPRISE;
+                maxValue = totalEmotionData.getSurprise();
+            }
+            if (totalEmotionData.getSadness() > maxValue) {
+                emotionRank = EmotionRank.SADNESS;
+                maxValue = totalEmotionData.getSadness();
+            }
+            emotionViewData.setRank(emotionRank);
+            result.add(emotionViewData);
+        }
+    }
 }

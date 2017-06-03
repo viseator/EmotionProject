@@ -15,14 +15,14 @@ public class EmotionDataEntity {
     long id;
 
     private long time;
-    private double anger;
-    private double contempt;
-    private double disgust;
-    private double fear;
-    private double happiness;
-    private double neutral;
-    private double sadness;
-    private double surprise;
+    protected double anger;
+    protected double contempt;
+    protected double disgust;
+    protected double fear;
+    protected double happiness;
+    protected double neutral;
+    protected double sadness;
+    protected double surprise;
     @Generated(hash = 1905874642)
     public EmotionDataEntity(long id, long time, double anger, double contempt,
             double disgust, double fear, double happiness, double neutral,

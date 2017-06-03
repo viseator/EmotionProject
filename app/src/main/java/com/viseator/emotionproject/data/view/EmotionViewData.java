@@ -15,16 +15,16 @@ public class EmotionViewData {
         return startMins;
     }
 
-    public void setStartMins(int startMins) {
-        this.startMins = startMins;
+    public void setStartMins(long startOfDay,long mills) {
+        this.startMins = (int) ((mills-startOfDay)/100/60);
     }
 
     public int getEndMins() {
         return endMins;
     }
 
-    public void setEndMins(int endMins) {
-        this.endMins = endMins;
+    public void setEndMins(long startOfDay,long mills) {
+        this.endMins = (int) ((mills-startOfDay)/100/60);
     }
 
     public EmotionRank getRank() {
