@@ -2,6 +2,7 @@ package com.viseator.emotionproject;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -70,8 +71,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mPieChart.setData(new PieData(new PieDataSet(mEmotionChartData.getMainPieEntries(),
-                "test")));
+        PieDataSet pieDataSet = new PieDataSet(mEmotionChartData.getMainPieEntries(),"test");
+        pieDataSet.addColor(Color.BLUE);
+        pieDataSet.addColor(Color.GRAY);
+        pieDataSet.setValueTextSize(10);
+        PieData pieData = new PieData(pieDataSet);
+        mPieChart.setDrawEntryLabels(true);
+        mPieChart.setEntryLabelTextSize(10);
+        mPieChart.setData(pieData);
     }
 
     private void initDate() {
