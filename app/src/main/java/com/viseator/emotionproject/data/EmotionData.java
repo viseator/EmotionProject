@@ -18,7 +18,7 @@ public class EmotionData {
                 Log.d(TAG, String.valueOf("create database"));
                 INSTANCE = create(emotionDataEntityDao);
             } else {
-                Log.e(TAG, String.valueOf("INSTANCE FAILURE"));
+                INSTANCE = emotionDataEntityDao.queryBuilder().list().get(0);
             }
         }
         return INSTANCE;
