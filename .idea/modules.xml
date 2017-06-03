@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Emotion.iml" filepath="$PROJECT_DIR$/Emotion.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/emotion/emotion.iml" filepath="$PROJECT_DIR$/emotion/emotion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/facelib/facelib.iml" filepath="$PROJECT_DIR$/facelib/facelib.iml" />
     </modules>
   </component>
 </project>
