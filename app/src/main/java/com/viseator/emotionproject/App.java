@@ -19,7 +19,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "chart-db");
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "emotion-db");
         Database db = helper.getWritableDb();
         mDaoSession = new DaoMaster(db).newSession();
     }
