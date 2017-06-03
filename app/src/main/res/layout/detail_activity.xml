@@ -17,10 +17,16 @@
             android:layout_height="50dp"
             android:id="@+id/detail_tablayout"/>
     </LinearLayout>
-
-    <com.viseator.emotionproject.DetailView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/detail_view"/>
+        android:fillViewport="true">
+        <com.viseator.emotionproject.DetailView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/detail_view"/>
+    </ScrollView>
+
 </LinearLayout>
