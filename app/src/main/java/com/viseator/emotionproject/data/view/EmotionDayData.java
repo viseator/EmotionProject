@@ -26,6 +26,10 @@ public class EmotionDayData {
         return mEmotionViewDataList.get(i);
     }
 
+    public List<EmotionViewData> getEmotionViewDataList() {
+        return mEmotionViewDataList;
+    }
+
     public void setEmotionViewDataList(List<EmotionViewData> emotionDataList) {
         mEmotionViewDataList = emotionDataList;
     }
