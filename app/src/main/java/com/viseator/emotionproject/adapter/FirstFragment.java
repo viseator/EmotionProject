@@ -26,6 +26,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener{
         View view=inflater.inflate(R.layout.first_fragment,container,false);
         ButterKnife.bind(this,view);
         button=(Button)view.findViewById(R.id.button_fragment);
+        button.setOnClickListener(this);
         return view;
     }
 
