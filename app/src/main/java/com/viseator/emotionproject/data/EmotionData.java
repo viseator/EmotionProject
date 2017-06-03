@@ -1,14 +1,9 @@
 package com.viseator.emotionproject.data;
 
-import android.util.Log;
-import android.widget.ExpandableListView;
-
 import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import com.microsoft.projectoxford.emotion.contract.Scores;
-import com.microsoft.projectoxford.face.contract.Emotion;
 
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by viseator on 6/3/17.
@@ -64,6 +59,10 @@ public class EmotionData {
 
     public void removeAllData() {
         mEmotionDataEntityDao.deleteAll();
+    }
+
+    public void getEmotionViewData(long startDayTime,boolean showRecent) {
+        // TODO: 6/3/17
     }
 
 }
