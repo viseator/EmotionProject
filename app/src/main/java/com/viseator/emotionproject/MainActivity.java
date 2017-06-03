@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
 
         mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
 
-        Test.test(mEmotionData);
+//        Test.test(mEmotionData);
 
     }
 
