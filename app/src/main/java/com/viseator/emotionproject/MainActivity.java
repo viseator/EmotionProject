@@ -1,9 +1,13 @@
 package com.viseator.emotionproject;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +24,7 @@ import com.viseator.emotionproject.adapter.SecondFragment;
 import com.viseator.emotionproject.adapter.ViewPagerAdapter;
 import com.viseator.emotionproject.data.EmotionData;
 import com.viseator.emotionproject.data.chart.EmotionChartData;
+import com.viseator.emotionproject.service.EmotionService;
 import com.viseator.emotionproject.test.Test;
 
 import java.util.ArrayList;
@@ -46,6 +51,19 @@ public class MainActivity extends BaseActivity {
     private List<android.support.v4.app.Fragment> fragments;
     private List<String> titles;
 
+    private EmotionService.ServiceBinder binder = null;
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            binder = (EmotionService.ServiceBinder) iBinder;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +73,21 @@ public class MainActivity extends BaseActivity {
         if (!(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)) {
             requestCameraPermission();
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                serviceStart();
+            }
+        }).start();
+    }
+
+    private void serviceStart() {
+        Intent intent = new Intent(MainActivity.this, EmotionService.class);
+        bindService(intent, connection, BIND_AUTO_CREATE);
+        while(binder == null);
+        EmotionService service = (EmotionService) binder.getService();
+        service.startWork();
     }
 
     @Override
