@@ -24,7 +24,7 @@ public class Test {
 
     public static void test(EmotionData emotionData) {
         long time = (long) (System.currentTimeMillis() - EmotionData.MILLS_OF_DAY * 7);
-        while ((time += Math.random() * EmotionData.MAX_GAP * 2) < System.currentTimeMillis()) {
+        while ((time += Math.random() * EmotionData.MAX_GAP*1.2 ) < System.currentTimeMillis()) {
             List<RecognizeResult> recognizeResultList = new ArrayList<>();
             RecognizeResult recognizeResult = new RecognizeResult();
             recognizeResult.scores = new Scores();

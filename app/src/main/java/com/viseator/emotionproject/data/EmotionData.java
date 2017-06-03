@@ -152,7 +152,7 @@ public class EmotionData {
             }
             ++i;
             if (emotionViewData.getStartMins() == emotionViewData.getEndMins() || emotionViewData
-                    .getEndMins() - emotionViewData.getStartMins() < MAX_GAP / 100 / 60) {
+                    .getEndMins() - emotionViewData.getStartMins() < MAX_GAP / 100 / 60/2) {
                 continue;
             }
 

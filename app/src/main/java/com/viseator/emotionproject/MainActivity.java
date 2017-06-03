@@ -45,10 +45,6 @@ public class MainActivity extends BaseActivity {
     private SecondFragment secondFragment;
     private List<android.support.v4.app.Fragment> fragments;
     private List<String> titles;
-    @BindView(R.id.main_piechart)
-    PieChart mPieChart;
-    @BindView(R.id.main_linechart)
-    LineChart mLineChart;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,36 +68,20 @@ public class MainActivity extends BaseActivity {
 
         mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
 
-//        Test.test(mEmotionData);
+        mEmotionData.removeAllData();
+        Test.test(mEmotionData);
 
     }
 
     @Override
     protected void initView() {
-        PieDataSet pieDataSet = new PieDataSet(mEmotionChartData.getMainPieEntries(), "");
-        pieDataSet.setColors(Color.parseColor("#61A5E8"), Color.parseColor("#7ECF51"),
-                Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor
-                        ("#E3935D") , Color.parseColor("#E16757"),Color.parseColor("#605FF0"));
-        pieDataSet.setValueTextSize(10);
-        PieData pieData = new PieData(pieDataSet);
-        pieData.setDrawValues(false);
-        mPieChart.setDrawEntryLabels(true);
-        mPieChart.setDescription(null);
-        mPieChart.setHoleRadius(20f);
-        mPieChart.setTransparentCircleRadius(0f);
-        mPieChart.setEntryLabelTextSize(8);
-        mPieChart.animateXY(2000,2000);
-        mPieChart.setData(pieData);
 
-        LineDataSet lineDataSet = new LineDataSet(mEmotionChartData.getMainLineEntries(), "");
-        LineData lineData = new LineData(lineDataSet);
-        mLineChart.setData(lineData);
-        // TODO: 6/4/17 adjust linechart
     }
 
     private void initDate() {
         firstFragment = new FirstFragment();
         secondFragment = new SecondFragment();
+        firstFragment.setEmotionData(mEmotionData);
         fragments = new ArrayList<>();
         titles = new ArrayList<>();
         titles.add("首页");
