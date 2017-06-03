@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,9 +24,13 @@ public class DetailView extends View {
     private Paint paint;
     private WindowManager wm=(WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
     private int distance=wm.getDefaultDisplay().getWidth();
+    private int height=wm.getDefaultDisplay().getHeight();
     private float x=distance/8;
     private OnItemSelectListener listener;
-
+    float xPress=0,yPress=0;
+    public int getMyHeight(){
+        return height;
+    }
 
     public DetailView(Context context, AttributeSet attributeSet){
         super(context,attributeSet);
@@ -82,40 +87,46 @@ public class DetailView extends View {
                             paint.setColor(Color.RED);
                             break;
                     }
-                    canvas.drawRect(distance/8+a*x,start,distance/8+a*x+x,end,paint);
+                    canvas.drawRect(distance/8+a*x+distance/32,start*3,distance/8+a*x+x-distance/32,end*3,paint);
                 }
             }
 
         }
-        /*
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(2);
-        for(int i=0;i<=1440;i++){
-            if((i%30)==0)
-
+        for(int i=0;i<=1440*3;i++){
+            if((i%45)==0) {
+                if(i%180==0) {
+                    canvas.drawLine(0, i, distance / 25, i, paint);
+                    paint.setTextSize(20);
+                    canvas.drawText(String.valueOf(i/180)+":00",distance/25,i,paint);
+                }
+                else canvas.drawLine(0, i, distance / 50, i, paint);
+            }
         }
-        canvas.drawLine(0,50,distance/9,50,paint);
-        canvas.drawLine(0,60,distance/9,60,paint);
-        */
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width=MeasureSpec.getSize(widthMeasureSpec);
-        int height=1440;
+        int height=1440*3;
         setMeasuredDimension(width,height);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                float xPress=event.getX();
-                float yPress=event.getY();
+                xPress=event.getX();
+                yPress=event.getY();
                 int result=dispatchX(xPress);
                 listener.OnItemSelect(yPress,result);
                 break;
+
+
         }
         return super.onTouchEvent(event);
     }

@@ -68,7 +68,7 @@ public class DetailActivity extends BaseActivity{
                 layoutParams.x=30;
                 int nH=detailView.getMyHeight();
                 float iH=(float) (3*1440)/ dY;
-                layoutParams.y=(int)(float)nH/iH);
+                layoutParams.y=(int)((float)nH/iH);
                 window.setAttributes(layoutParams);
                 dialog.show();
                 Log.w("dY；",String.valueOf(dY));
