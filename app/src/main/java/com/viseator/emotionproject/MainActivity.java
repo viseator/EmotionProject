@@ -1,12 +1,12 @@
 package com.viseator.emotionproject;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
-
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -16,8 +16,6 @@ import com.viseator.emotionproject.adapter.SecondFragment;
 import com.viseator.emotionproject.adapter.ViewPagerAdapter;
 import com.viseator.emotionproject.data.EmotionData;
 import com.viseator.emotionproject.data.chart.EmotionChartData;
-import com.viseator.emotionproject.data.view.EmotionRank;
-import com.viseator.emotionproject.test.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +26,19 @@ public class MainActivity extends BaseActivity {
     private EmotionData mEmotionData;
     private EmotionChartData mEmotionChartData;
     private static final String TAG = "@vir MainActivity";
+
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 0);
+    }
+
+
     private ViewPager mViewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private TabLayout mTabLayout;
     private FirstFragment firstFragment;
     private SecondFragment secondFragment;
-    private List<Fragment> fragments;
+    private List<android.support.v4.app.Fragment> fragments;
     private List<String> titles;
     @BindView(R.id.main_piechart)
     PieChart mPieChart;
@@ -45,6 +50,9 @@ public class MainActivity extends BaseActivity {
 //        Test.test(emotionData);
 //        Log.d(TAG, EmotionRank.ANGER.toString());
 
+        if (!(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)) {
+            requestCameraPermission();
+        }
     }
 
     @Override
@@ -69,8 +77,8 @@ public class MainActivity extends BaseActivity {
     private void initDate() {
         firstFragment = new FirstFragment();
         secondFragment = new SecondFragment();
-        fragments = new ArrayList<Fragment>();
-        titles = new ArrayList<String>();
+        fragments = new ArrayList<>();
+        titles = new ArrayList<>();
         titles.add("首页");
         titles.add("个人信息");
         fragments.add(firstFragment);
