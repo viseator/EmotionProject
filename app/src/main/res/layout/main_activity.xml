@@ -10,10 +10,17 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/main_piechart"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="240dp">
 
 
         </com.github.mikephil.charting.charts.PieChart>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/main_linechart"
+            android:layout_below="@+id/main_piechart"
+            android:layout_width="match_parent"
+            android:layout_height="240dp">
+
+        </com.github.mikephil.charting.charts.LineChart>
 
     </RelativeLayout>
     <android.support.v4.view.ViewPager

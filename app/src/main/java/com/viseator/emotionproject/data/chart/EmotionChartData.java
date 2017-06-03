@@ -2,9 +2,14 @@ package com.viseator.emotionproject.data.chart;
 
 import android.util.Log;
 
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
 import com.viseator.emotionproject.data.EmotionData;
 import com.viseator.emotionproject.data.EmotionDataEntity;
+import com.viseator.emotionproject.data.view.EmotionDayData;
+import com.viseator.emotionproject.data.view.EmotionWeekData;
+
+import org.greenrobot.greendao.annotation.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,5 +57,16 @@ public class EmotionChartData {
         }
         Log.d(TAG, String.valueOf(pieEntryList.size()));
         return pieEntryList;
+    }
+
+    public List<Entry> getMainLineEntries() {
+        EmotionWeekData emotionWeekData = mEmotionData.getEmotionWeekData(0, false);
+        List<EmotionDayData> dayDatas = emotionWeekData.getEmotionDayDataList();
+        List<Entry> result = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            Entry entry = new Entry(i, EmotionData.getIdFromRank(dayDatas.get(i).getMostOfDay()) + 1);
+            result.add(entry);
+        }
+        return result;
     }
 }

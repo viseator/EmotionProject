@@ -9,7 +9,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.viseator.emotionproject.adapter.FirstFragment;
@@ -44,6 +47,8 @@ public class MainActivity extends BaseActivity {
     private List<String> titles;
     @BindView(R.id.main_piechart)
     PieChart mPieChart;
+    @BindView(R.id.main_linechart)
+    LineChart mLineChart;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,10 @@ public class MainActivity extends BaseActivity {
         mPieChart.setDrawEntryLabels(true);
         mPieChart.setEntryLabelTextSize(10);
         mPieChart.setData(pieData);
+
+        LineDataSet lineDataSet = new LineDataSet(mEmotionChartData.getMainLineEntries(), "test");
+        LineData lineData = new LineData(lineDataSet);
+        mLineChart.setData(lineData);
     }
 
     private void initDate() {
