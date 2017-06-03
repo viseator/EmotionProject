@@ -14,7 +14,7 @@ import com.viseator.emotionproject.adapter.ViewPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private TabLayout mTabLayout;
@@ -23,10 +23,24 @@ public class MainActivity extends AppCompatActivity {
     private List<Fragment> fragments;
     private List<String>  titles;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
         initDate();
+
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.main_activity;
+    }
+
+    @Override
+    protected void baseInit() {
+
+    }
+
+    @Override
+    protected void initView() {
 
     }
 

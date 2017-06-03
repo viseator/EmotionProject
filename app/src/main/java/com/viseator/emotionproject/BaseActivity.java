@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 
+import com.microsoft.projectoxford.emotion.EmotionServiceClient;
+import com.viseator.emotionproject.data.DaoSession;
+import com.viseator.emotionproject.data.EmotionDataEntityDao;
+
 import butterknife.ButterKnife;
 
 /**
@@ -49,10 +53,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void initView();
 
-//    protected ChartDataEntityDao getChartDataDao() {
-//        DaoSession daoSession = ((App) getApplication()).getDaoSession();
-//        return daoSession.getChartDataEntityDao();
-//    }
+    protected EmotionDataEntityDao getEmotionDataEntityDao() {
+        DaoSession daoSession = ((App) getApplication()).getDaoSession();
+        return daoSession.getEmotionDataEntityDao();
+    }
 
 }
 

@@ -12,35 +12,94 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class EmotionDataEntity {
     @Id
-    Long id;
+    long id;
 
-    private Long time;
-
-    @Generated(hash = 149199993)
-    public EmotionDataEntity(Long id, Long time) {
+    private long time;
+    private double anger;
+    private double contempt;
+    private double disgust;
+    private double fear;
+    private double happiness;
+    private double neutral;
+    private double sadness;
+    private double surprise;
+    @Generated(hash = 1905874642)
+    public EmotionDataEntity(long id, long time, double anger, double contempt,
+            double disgust, double fear, double happiness, double neutral,
+            double sadness, double surprise) {
         this.id = id;
         this.time = time;
+        this.anger = anger;
+        this.contempt = contempt;
+        this.disgust = disgust;
+        this.fear = fear;
+        this.happiness = happiness;
+        this.neutral = neutral;
+        this.sadness = sadness;
+        this.surprise = surprise;
     }
-
     @Generated(hash = 1448679362)
     public EmotionDataEntity() {
     }
-
-    public Long getId() {
+    public long getId() {
         return this.id;
     }
-
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
-
-    public Long getTime() {
+    public long getTime() {
         return this.time;
     }
-
-    public void setTime(Long time) {
+    public void setTime(long time) {
         this.time = time;
     }
-
-
+    public double getAnger() {
+        return this.anger;
+    }
+    public void setAnger(double anger) {
+        this.anger = anger;
+    }
+    public double getContempt() {
+        return this.contempt;
+    }
+    public void setContempt(double contempt) {
+        this.contempt = contempt;
+    }
+    public double getDisgust() {
+        return this.disgust;
+    }
+    public void setDisgust(double disgust) {
+        this.disgust = disgust;
+    }
+    public double getFear() {
+        return this.fear;
+    }
+    public void setFear(double fear) {
+        this.fear = fear;
+    }
+    public double getHappiness() {
+        return this.happiness;
+    }
+    public void setHappiness(double happiness) {
+        this.happiness = happiness;
+    }
+    public double getNeutral() {
+        return this.neutral;
+    }
+    public void setNeutral(double neutral) {
+        this.neutral = neutral;
+    }
+    public double getSadness() {
+        return this.sadness;
+    }
+    public void setSadness(double sadness) {
+        this.sadness = sadness;
+    }
+    public double getSurprise() {
+        return this.surprise;
+    }
+    public void setSurprise(double surprise) {
+        this.surprise = surprise;
+    }
 }
+
