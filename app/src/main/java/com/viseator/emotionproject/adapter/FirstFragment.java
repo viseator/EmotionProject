@@ -2,9 +2,11 @@ package com.viseator.emotionproject.adapter;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.Button;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
@@ -60,24 +64,45 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
     public void initView() {
         EmotionChartData mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
         PieDataSet pieDataSet = new PieDataSet(mEmotionChartData.getMainPieEntries(), "");
-        pieDataSet.setColors(Color.parseColor("#61A5E8"), Color.parseColor("#7ECF51"),
-                Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor
+        pieDataSet.setColors(Color.parseColor("#61A5E8"),
+                Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor("#7ECF51"), Color.parseColor
                         ("#E3935D"), Color.parseColor("#E16757"), Color.parseColor("#605FF0"));
         pieDataSet.setValueTextSize(10);
         PieData pieData = new PieData(pieDataSet);
         pieData.setDrawValues(false);
         mPieChart.setDrawEntryLabels(true);
         mPieChart.setDescription(null);
-        mPieChart.setHoleRadius(20f);
+        mPieChart.setHoleRadius(30f);
         mPieChart.setTransparentCircleRadius(0f);
         mPieChart.setEntryLabelTextSize(8);
         mPieChart.animateXY(2000, 2000);
+        mPieChart.setAlpha(0.7f);
+        mPieChart.getLegend().setEnabled(false);
         mPieChart.setData(pieData);
 
+
         LineDataSet lineDataSet = new LineDataSet(mEmotionChartData.getMainLineEntries(), "");
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_color);
+        lineDataSet.setDrawFilled(true);
+        lineDataSet.setFillDrawable(drawable);
+        lineDataSet.enableDashedLine(10f,10f,0f);
+        lineDataSet.setColor(Color.parseColor("#F2B27B"));
+        lineDataSet.setDrawCircles(false);
         LineData lineData = new LineData(lineDataSet);
+        lineData.setDrawValues(false);
         mLineChart.setData(lineData);
-        // TODO: 6/4/17 adjust linechart
+        mLineChart.setDescription(null);
+        mLineChart.getLegend().setEnabled(false);
+        mLineChart.animateXY(2000,2000);
+        XAxis xAxis = mLineChart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setEnabled(false);
+        YAxis yAxisRight = mLineChart.getAxisRight();
+        yAxisRight.setEnabled(false);
+        YAxis yAxisLeft = mLineChart.getAxisLeft();
+        yAxisLeft.setEnabled(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
     }
 
     @Override

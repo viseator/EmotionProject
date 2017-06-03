@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <RelativeLayout
+        android:background="@color/backgroundMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/now">
+
+        </ImageView>
+
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/main_piechart"
             android:layout_width="match_parent"
-            android:layout_height="240dp">
+            android:layout_height="180dp"
+            android:layout_marginTop="40dp">
 
 
         </com.github.mikephil.charting.charts.PieChart>
-        <com.github.mikephil.charting.charts.LineChart
-            android:clickable="true"
-            android:id="@+id/main_linechart"
-            android:layout_below="@+id/main_piechart"
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="240dp">
+            android:layout_height="match_parent"
+            android:layout_below="@id/imageview"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/past"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/main_linechart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/imageview"
+            android:layout_marginBottom="70dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="50dp"
+            android:clickable="true">
 
         </com.github.mikephil.charting.charts.LineChart>
 
