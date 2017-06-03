@@ -3,6 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_marginBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/main_piechart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+
+        </com.github.mikephil.charting.charts.PieChart>
+
+    </RelativeLayout>
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,6 +23,7 @@
         android:id="@+id/viewpager_main"/>
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         android:id="@+id/tablayout_main"/>
+
 </LinearLayout>

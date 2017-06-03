@@ -41,9 +41,9 @@ public class Test {
             Log.d(TAG, String.valueOf(randomTime));
 //            emotionData.addEmotionData(recognizeResultList,randomTime );
         }
-//        EmotionWeekData  weekData = emotionData.getEmotionWeekData(0, true);
+        EmotionWeekData  weekData = emotionData.getEmotionWeekData(0, true);
 
-        EmotionDataEntity emotionDataEntity = emotionData.getLastData();
+//        EmotionDataEntity emotionDataEntity = emotionData.getLastData();
         Log.d(TAG, String.valueOf(emotionData));
 
     }

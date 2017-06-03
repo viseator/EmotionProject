@@ -147,4 +147,31 @@ public class EmotionData {
         }
         return result;
     }
+
+    public static List<Double> convertEntityToList(EmotionDataEntity entity) {
+        List<Double> result = new ArrayList<>();
+        result.add(entity.getAnger() > 0.1 ? entity.getAnger() : 0);
+        result.add(entity.getContempt() > 0.1 ? entity.getContempt() : 0);
+        result.add(entity.getDisgust() > 0.1 ? entity.getDisgust() : 0);
+        result.add(entity.getFear() > 0.1 ? entity.getFear() : 0);
+        result.add(entity.getHappiness() > 0.1 ? entity.getHappiness() : 0);
+        result.add(entity.getNeutral() > 0.1 ? entity.getNeutral() : 0);
+        result.add(entity.getSadness() > 0.1 ? entity.getSadness() : 0);
+        result.add(entity.getSurprise() > 0.1 ? entity.getSurprise() : 0);
+        return result;
+    }
+
+    public static EmotionRank getRankFromId(int id) {
+        switch (id) {
+            case 0: return EmotionRank.ANGER;
+            case 1: return EmotionRank.CONTEMPT;
+            case 2: return EmotionRank.DISGUST;
+            case 3: return EmotionRank.FEAR;
+            case 4: return EmotionRank.HAPPINESS;
+            case 5: return EmotionRank.NEUTRAL;
+            case 6: return EmotionRank.SADNESS;
+            case 7: return EmotionRank.SURPRISE;
+        }
+        return null;
+    }
 }
