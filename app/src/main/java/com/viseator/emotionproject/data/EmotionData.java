@@ -4,6 +4,7 @@ import android.support.annotation.ArrayRes;
 
 import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import com.microsoft.projectoxford.emotion.contract.Scores;
+import com.viseator.emotionproject.data.view.EmotionDayData;
 import com.viseator.emotionproject.data.view.EmotionRank;
 import com.viseator.emotionproject.data.view.EmotionViewData;
 import com.viseator.emotionproject.data.view.EmotionWeekData;
@@ -71,8 +72,16 @@ public class EmotionData {
     }
 
     public EmotionWeekData getEmotionWeekData(long startDayTime, boolean showRecent) {
-        // TODO: 6/3/17
-        return null;
+        List<EmotionDayData> dayDataList = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            EmotionDayData emotionDayData = new EmotionDayData();
+            emotionDayData.setEmotionDataList(generateEmotionDataOfDay
+                    (startDayTime - MILLS_OF_DAY * i));
+            dayDataList.add(emotionDayData);
+        }
+        EmotionWeekData emotionWeekData = new EmotionWeekData();
+        emotionWeekData.setEmotionDayDataList(dayDataList);
+        return emotionWeekData;
     }
 
     private List<EmotionViewData> generateEmotionDataOfDay(long startDayTime) {
@@ -82,8 +91,8 @@ public class EmotionData {
         List<EmotionViewData> result = new ArrayList<>();
         while (i < emotionDataEntities.size()) {
             EmotionViewData emotionViewData = new EmotionViewData();
-            emotionViewData.setStartMins(startDayTime,emotionDataEntities.get(i).getTime());
-            emotionViewData.setEndMins(startDayTime,emotionDataEntities.get(i).getTime());
+            emotionViewData.setStartMins(startDayTime, emotionDataEntities.get(i).getTime());
+            emotionViewData.setEndMins(startDayTime, emotionDataEntities.get(i).getTime());
 
             TotalEmotionData totalEmotionData = new TotalEmotionData();
             totalEmotionData.add(emotionDataEntities.get(i));
@@ -130,5 +139,6 @@ public class EmotionData {
             emotionViewData.setRank(emotionRank);
             result.add(emotionViewData);
         }
+        return result;
     }
 }

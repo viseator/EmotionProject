@@ -11,13 +11,13 @@ import java.util.List;
  */
 
 public class EmotionDayData {
-    private List<EmotionData> mEmotionDataList;
+    private List<EmotionViewData> mEmotionViewDataList;
 
-    public List<EmotionData> getEmotionDataList() {
-        return mEmotionDataList;
+    public List<EmotionViewData> getEmotionDataList() {
+        return mEmotionViewDataList;
     }
 
-    public void setEmotionDataList(List<EmotionData> emotionDataList) {
-        mEmotionDataList = emotionDataList;
+    public void setEmotionDataList(List<EmotionViewData> emotionDataList) {
+        mEmotionViewDataList = emotionDataList;
     }
 }
