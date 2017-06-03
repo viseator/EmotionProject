@@ -72,7 +72,8 @@ public class MainActivity extends BaseActivity {
 
         mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
 
-//        Test.test(mEmotionData);
+        mEmotionData.removeAllData();
+        Test.test(mEmotionData);
 
     }
 
