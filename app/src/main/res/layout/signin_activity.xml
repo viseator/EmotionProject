@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f8ed">
+
+    <ImageView
+        android:id="@+id/signin_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="320dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/sign_in_background"
+        android:layout_alignParentTop="true"/>
+
+    <LinearLayout
+        android:id="@+id/signin_first_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signin_back_image"
+        android:background="#f9f8ed">
+
+        <Button
+            android:id="@+id/sign_in_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_weight="1"
+            android:background="@drawable/sign_in_button"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signin_first_layout"
+        android:background="#f9f8ed">
+
+        <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_weight="1"
+            android:background="@drawable/sign_out_button"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sign_in_bottom_text"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>
