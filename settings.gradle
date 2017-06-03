@@ -1,1 +1,1 @@
-include ':app', ':facelib', ':emotion'
+include ':app', ':facelib', ':emotion', ':MPChartLib'
