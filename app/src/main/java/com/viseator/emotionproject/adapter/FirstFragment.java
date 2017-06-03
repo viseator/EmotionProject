@@ -40,6 +40,8 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
     PieChart mPieChart;
     private EmotionData mEmotionData;
 
+    private EmotionChartData mEmotionChartData;
+
     public void setEmotionData(EmotionData emotionData) {
         mEmotionData = emotionData;
     }
@@ -61,8 +63,28 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    public void refreshPieChart() {
+        mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
+        PieDataSet pieDataSet = new PieDataSet(mEmotionChartData.getMainPieEntries(), "");
+        pieDataSet.setColors(Color.parseColor("#61A5E8"),
+                Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor("#7ECF51"), Color.parseColor
+                        ("#E3935D"), Color.parseColor("#E16757"), Color.parseColor("#605FF0"));
+        pieDataSet.setValueTextSize(10);
+        PieData pieData = new PieData(pieDataSet);
+        pieData.setDrawValues(false);
+        mPieChart.setDrawEntryLabels(true);
+        mPieChart.setDescription(null);
+        mPieChart.setHoleRadius(30f);
+        mPieChart.setTransparentCircleRadius(0f);
+        mPieChart.setEntryLabelTextSize(8);
+        mPieChart.animateXY(2000, 2000);
+        mPieChart.setAlpha(0.7f);
+        mPieChart.getLegend().setEnabled(false);
+        mPieChart.setData(pieData);
+    }
+
     public void initView() {
-        EmotionChartData mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
+        mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
         PieDataSet pieDataSet = new PieDataSet(mEmotionChartData.getMainPieEntries(), "");
         pieDataSet.setColors(Color.parseColor("#61A5E8"),
                 Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor("#7ECF51"), Color.parseColor
@@ -85,7 +107,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_color);
         lineDataSet.setDrawFilled(true);
         lineDataSet.setFillDrawable(drawable);
-        lineDataSet.enableDashedLine(10f,10f,0f);
+        lineDataSet.enableDashedLine(10f, 10f, 0f);
         lineDataSet.setColor(Color.parseColor("#F2B27B"));
         lineDataSet.setDrawCircles(false);
         LineData lineData = new LineData(lineDataSet);

@@ -21,10 +21,14 @@ import android.hardware.camera2.CameraManager;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -35,6 +39,7 @@ import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import com.microsoft.projectoxford.emotion.rest.EmotionServiceException;
 import com.microsoft.projectoxford.face.contract.Emotion;
 import com.viseator.emotionproject.App;
+import com.viseator.emotionproject.MainActivity;
 import com.viseator.emotionproject.data.DaoSession;
 import com.viseator.emotionproject.data.EmotionData;
 import com.viseator.emotionproject.data.EmotionDataEntityDao;
@@ -58,9 +63,15 @@ public class EmotionService extends Service {
     private PhotoHolder photoHolder;
     private EmotionData data;
 
+    private Handler mHandler;
+
+
     public class ServiceBinder extends Binder {
         public Service getService() {
             return EmotionService.this;
+        }
+        public void setHandler(Handler handler) {
+            mHandler = handler;
         }
     }
 
@@ -143,7 +154,7 @@ public class EmotionService extends Service {
             Log.d(TAG, "ready to send " + bitmapBytes.length);
             Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
             Matrix matrix = new Matrix();
-            matrix.postRotate(-90);
+            matrix.postRotate(0);
             Bitmap proBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             proBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
@@ -172,6 +183,12 @@ public class EmotionService extends Service {
 
             data.addEmotionData(resultList, System.currentTimeMillis());
             String result = gson.toJson(resultList);
+
+            Message msg = new Message();
+            msg.arg1 = 1;
+            if (mHandler != null)
+                mHandler.sendMessage(msg);
+
             Log.d("EmotionService", result);
             return Boolean.TRUE;
         }

@@ -7,11 +7,14 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -37,11 +40,25 @@ public class MainActivity extends BaseActivity {
     private EmotionChartData mEmotionChartData;
     private static final String TAG = "@vir MainActivity";
 
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.arg1 == 1) {
+                firstFragment.refreshPieChart();
+            }
+        }
+    };
+
 
     private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 0);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission
+                .CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
     }
 
+//    public interface OnDataReceivedListener{
+//        void onReceive();
+//    }
 
     private ViewPager mViewPager;
     private ViewPagerAdapter viewPagerAdapter;
@@ -50,6 +67,14 @@ public class MainActivity extends BaseActivity {
     private SecondFragment secondFragment;
     private List<android.support.v4.app.Fragment> fragments;
     private List<String> titles;
+
+//    private OnDataReceivedListener mDataReceivedListener = new OnDataReceivedListener() {
+//        @Override
+//        public void onReceive() {
+//            Log.d(TAG, String.valueOf("OK"));
+//            firstFragment.refreshPieChart();
+//        }
+//    };
 
     private EmotionService.ServiceBinder binder = null;
     private ServiceConnection connection = new ServiceConnection() {
@@ -82,10 +107,18 @@ public class MainActivity extends BaseActivity {
         }).start();
     }
 
+    @Override
+    public void onDestroy() {
+        unbindService(connection);
+        super.onDestroy();
+
+    }
+
     private void serviceStart() {
         Intent intent = new Intent(MainActivity.this, EmotionService.class);
         bindService(intent, connection, BIND_AUTO_CREATE);
         while(binder == null);
+        binder.setHandler(mHandler);
         EmotionService service = (EmotionService) binder.getService();
         service.startWork();
     }
