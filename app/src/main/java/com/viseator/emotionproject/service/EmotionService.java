@@ -97,15 +97,11 @@ public class EmotionService extends Service {
         if (alarmManager == null) {
             alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         }
-        if (camera == null) {
-            camera = openFacingFrontCamera();
-        }
         if (photoHolder == null) {
             photoHolder = new PhotoHolder();
         }
         IntentFilter intentFilter = new IntentFilter("com.viseator.emotionproject.mainservice");
         registerReceiver(mainServiceReceiver, intentFilter);
-        startWork();
     }
 
     BroadcastReceiver mainServiceReceiver = new BroadcastReceiver() {
@@ -199,6 +195,7 @@ public class EmotionService extends Service {
     }
 
     private void setCamera() {
+        camera = openFacingFrontCamera();
         Camera.Parameters params = camera.getParameters();
         if (params.getMaxNumMeteringAreas() > 0){ // check that metering areas are supported
             Log.d(TAG, "ok");
@@ -215,6 +212,12 @@ public class EmotionService extends Service {
             e.printStackTrace();
         }
         camera.takePicture(null, null, new PhotoHolder());
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        camera.release();
     }
 
     public void startWork() {
@@ -232,6 +235,5 @@ public class EmotionService extends Service {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, 0);
         Log.d(TAG, "alarmManager has been stopped");
         alarmManager.cancel(pendingIntent);
-        camera.release();
     }
 }

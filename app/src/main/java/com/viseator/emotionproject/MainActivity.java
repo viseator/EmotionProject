@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity {
             public void run() {
                 while (binder == null);
                 EmotionService service = (EmotionService) binder.getService();
+                service.startWork();
             }
         }).start();
 
