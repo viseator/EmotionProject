@@ -2,8 +2,12 @@ package com.viseator.emotionproject;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.viseator.emotionproject.data.EmotionData;
@@ -58,6 +62,16 @@ public class DetailActivity extends BaseActivity{
             @Override
             public boolean onLongClick(View view) {
                 Toast.makeText(DetailActivity.this,String.valueOf(dNum),Toast.LENGTH_SHORT).show();
+                LongPressDialog dialog=new LongPressDialog(DetailActivity.this,R.style.Dialog);
+                Window window=dialog.getWindow();
+                WindowManager.LayoutParams layoutParams=window.getAttributes();
+                layoutParams.x=30;
+                int nH=detailView.getMyHeight();
+                float iH=(float) (3*1440)/ dY;
+                layoutParams.y=(int)((float)nH/iH);
+                window.setAttributes(layoutParams);
+                dialog.show();
+                Log.w("dY；",String.valueOf(dY));
                 return false;
             }
         });
