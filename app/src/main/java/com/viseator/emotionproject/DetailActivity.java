@@ -8,10 +8,24 @@ import android.support.v7.app.AppCompatActivity;
  * Created by yanhao on 17-6-3.
  */
 
-public class DetailActivity extends AppCompatActivity{
+public class DetailActivity extends BaseActivity{
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_activity);
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.detail_activity;
+    }
+
+    @Override
+    protected void baseInit() {
+
+    }
+
+    @Override
+    protected void initView() {
+
     }
 }
