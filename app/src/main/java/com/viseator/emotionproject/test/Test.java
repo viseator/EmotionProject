@@ -6,6 +6,7 @@ import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import com.microsoft.projectoxford.emotion.contract.Scores;
 import com.microsoft.projectoxford.face.contract.Emotion;
 import com.viseator.emotionproject.data.EmotionData;
+import com.viseator.emotionproject.data.EmotionDataEntity;
 import com.viseator.emotionproject.data.view.EmotionWeekData;
 
 import java.util.ArrayList;
@@ -36,12 +37,13 @@ public class Test {
             scores.sadness = Math.random();
             recognizeResultList.add(recognizeResult);
 
-//            emotionData.addEmotionData(recognizeResultList, (long) (EmotionData.MAX_GAP
-//                    * i + EmotionData.MAX_GAP * Math.random()));
+            emotionData.addEmotionData(recognizeResultList, (long) (EmotionData.MAX_GAP
+                    * i + EmotionData.MAX_GAP * Math.random()));
         }
-        EmotionWeekData  weekData = emotionData.getEmotionWeekData(0, true);
+//        EmotionWeekData  weekData = emotionData.getEmotionWeekData(0, true);
 
-        Log.d(TAG, String.valueOf(weekData));
+        EmotionDataEntity emotionDataEntity = emotionData.getLastData();
+        Log.d(TAG, String.valueOf(emotionData));
 
     }
 }
