@@ -25,6 +25,7 @@ public class SignInOutActivity extends BaseActivity {
 
     @Override
     protected void baseInit() {
+        setFullScreen();
 
     }
 

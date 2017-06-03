@@ -39,7 +39,7 @@ public class AccountPswdActivity extends BaseActivity {
 
     @Override
     protected void baseInit() {
-
+        setFullScreen();
     }
 
     @Override
