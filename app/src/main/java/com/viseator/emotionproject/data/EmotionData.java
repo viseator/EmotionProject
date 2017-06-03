@@ -72,6 +72,7 @@ public class EmotionData {
     }
 
     public EmotionWeekData getEmotionWeekData(long startDayTime, boolean showRecent) {
+        // TODO: 6/3/17 add not show recent
         List<EmotionDayData> dayDataList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             EmotionDayData emotionDayData = new EmotionDayData();
