@@ -33,4 +33,5 @@ dependencies {
     // add library
     compile project(':emotion')
     compile project(':facelib')
+    compile 'com.google.code.gson:gson:2.8.1'
 }

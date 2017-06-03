@@ -15,18 +15,18 @@ public class EmotionDataEntity {
     long id;
 
     private long time;
-    private float anger;
-    private float contempt;
-    private float disgust;
-    private float fear;
-    private float happiness;
-    private float neutral;
-    private float sadness;
-    private float surprise;
-    @Generated(hash = 1071886841)
-    public EmotionDataEntity(long id, long time, float anger, float contempt,
-            float disgust, float fear, float happiness, float neutral,
-            float sadness, float surprise) {
+    private double anger;
+    private double contempt;
+    private double disgust;
+    private double fear;
+    private double happiness;
+    private double neutral;
+    private double sadness;
+    private double surprise;
+    @Generated(hash = 1905874642)
+    public EmotionDataEntity(long id, long time, double anger, double contempt,
+            double disgust, double fear, double happiness, double neutral,
+            double sadness, double surprise) {
         this.id = id;
         this.time = time;
         this.anger = anger;
@@ -53,55 +53,53 @@ public class EmotionDataEntity {
     public void setTime(long time) {
         this.time = time;
     }
-    public float getAnger() {
+    public double getAnger() {
         return this.anger;
     }
-    public void setAnger(float anger) {
+    public void setAnger(double anger) {
         this.anger = anger;
     }
-    public float getContempt() {
+    public double getContempt() {
         return this.contempt;
     }
-    public void setContempt(float contempt) {
+    public void setContempt(double contempt) {
         this.contempt = contempt;
     }
-    public float getDisgust() {
+    public double getDisgust() {
         return this.disgust;
     }
-    public void setDisgust(float disgust) {
+    public void setDisgust(double disgust) {
         this.disgust = disgust;
     }
-    public float getFear() {
+    public double getFear() {
         return this.fear;
     }
-    public void setFear(float fear) {
+    public void setFear(double fear) {
         this.fear = fear;
     }
-    public float getHappiness() {
+    public double getHappiness() {
         return this.happiness;
     }
-    public void setHappiness(float happiness) {
+    public void setHappiness(double happiness) {
         this.happiness = happiness;
     }
-    public float getNeutral() {
+    public double getNeutral() {
         return this.neutral;
     }
-    public void setNeutral(float neutral) {
+    public void setNeutral(double neutral) {
         this.neutral = neutral;
     }
-    public float getSadness() {
+    public double getSadness() {
         return this.sadness;
     }
-    public void setSadness(float sadness) {
+    public void setSadness(double sadness) {
         this.sadness = sadness;
     }
-    public float getSurprise() {
+    public double getSurprise() {
         return this.surprise;
     }
-    public void setSurprise(float surprise) {
+    public void setSurprise(double surprise) {
         this.surprise = surprise;
     }
-    
-
-
 }
+
