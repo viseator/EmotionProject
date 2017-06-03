@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/viseator/Projects/AndroidStudioProjects/Emotion/emotion/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/home/viseator/Projects/AndroidStudioProjects/Emotion/emotion/src/debug/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/tangyifeng/AndroidStudioProjects/EmotionProject/emotion/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/tangyifeng/AndroidStudioProjects/EmotionProject/emotion/src/debug/shaders"/></dataSet></merger>
