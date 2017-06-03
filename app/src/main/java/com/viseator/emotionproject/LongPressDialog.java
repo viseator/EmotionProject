@@ -64,7 +64,7 @@ public class LongPressDialog extends AlertDialog {
         List<EmotionViewData> viewDataList = emotionDayData.getEmotionViewDataList();
         EmotionViewData result = null;
         for (EmotionViewData viewData : viewDataList) {
-            if (min > viewData.getStartMins() && min < viewData.getEndMins()) {
+            if (min / 3 + 7 * 60 > viewData.getStartMins() && min / 3 + 7 * 60 < viewData.getEndMins()) {
                 Log.d(TAG, "found:" + String.valueOf(min));
                 result = viewData;
                 break;

@@ -2,15 +2,11 @@ package com.viseator.emotionproject;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
-import android.util.EventLog;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.viseator.emotionproject.data.EmotionData;
 import com.viseator.emotionproject.data.view.EmotionWeekData;
@@ -67,7 +63,7 @@ public class DetailActivity extends BaseActivity {
         detailView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Toast.makeText(DetailActivity.this, String.valueOf(dNum), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(DetailActivity.this, String.valueOf(dNum), Toast.LENGTH_SHORT).show();
                 LongPressDialog dialog = new LongPressDialog(DetailActivity.this, R.style.Dialog);
                 dialog.setEmotionWeekData(weekData);
                 dialog.setMin((long) dY);
