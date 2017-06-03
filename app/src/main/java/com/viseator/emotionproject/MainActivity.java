@@ -1,11 +1,6 @@
 package com.viseator.emotionproject;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-
-import com.viseator.emotionproject.data.EmotionData;
-import com.viseator.emotionproject.data.EmotionDataEntity;
 
 public class MainActivity extends BaseActivity {
 
@@ -13,10 +8,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EmotionDataEntity emotionDataEntity = EmotionData.getEmotionDataEntity
-                (getEmotionDataEntityDao());
-        emotionDataEntity.setFear(100f);
-        Log.d(TAG, String.valueOf(emotionDataEntity.getFear()));
     }
 
     @Override
