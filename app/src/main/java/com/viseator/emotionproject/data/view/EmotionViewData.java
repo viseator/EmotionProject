@@ -10,6 +10,15 @@ public class EmotionViewData {
     private int startMins;
     private int endMins;
     private EmotionRank rank;
+    private TotalEmotionData mTotalEmotionData;
+
+    public TotalEmotionData getTotalEmotionData() {
+        return mTotalEmotionData;
+    }
+
+    public void setTotalEmotionData(TotalEmotionData totalEmotionData) {
+        mTotalEmotionData = totalEmotionData;
+    }
 
     public int getStartMins() {
         return startMins;

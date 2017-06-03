@@ -12,6 +12,15 @@ import java.util.List;
 
 public class EmotionDayData {
     private List<EmotionViewData> mEmotionViewDataList;
+    private EmotionRank mostOfDay;
+
+    public EmotionRank getMostOfDay() {
+        return mostOfDay;
+    }
+
+    public void setMostOfDay(EmotionRank mostOfDay) {
+        this.mostOfDay = mostOfDay;
+    }
 
     public EmotionViewData getEmotionViewDataList(int i) {
         return mEmotionViewDataList.get(i);

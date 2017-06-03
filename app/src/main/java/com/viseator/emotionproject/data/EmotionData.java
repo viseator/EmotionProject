@@ -76,19 +76,62 @@ public class EmotionData {
     public EmotionDataEntity getLastData() {
         return mEmotionDataEntityDao.queryBuilder().list().get(count() - 1);
     }
+
     public EmotionWeekData getEmotionWeekData(long startDayTime, boolean showRecent) {
         // TODO: 6/3/17 add not show recent
         List<EmotionDayData> dayDataList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             EmotionDayData emotionDayData = new EmotionDayData();
-            emotionDayData.setEmotionViewDataList(generateEmotionDataOfDay
-                    (startDayTime - MILLS_OF_DAY * i));
+            List<EmotionViewData> emotionViewDataList = generateEmotionDataOfDay
+                    (startDayTime - MILLS_OF_DAY * i);
+            emotionDayData.setEmotionViewDataList(emotionViewDataList);
+
+            int[] rankSum = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+
+            for (EmotionViewData viewData : emotionViewDataList) {
+                switch (viewData.getRank()) {
+                    case ANGER:
+                        rankSum[0] += viewData.getEndMins() - viewData.getStartMins();
+                        break;
+                    case CONTEMPT:
+                        rankSum[1] += viewData.getEndMins() - viewData.getStartMins();
+                        break;
+                    case DISGUST:
+                        rankSum[2] += viewData.getEndMins() - viewData.getStartMins();
+                        break;
+                    case FEAR:
+                        rankSum[3] += viewData.getEndMins() - viewData.getStartMins();
+                        break;
+                    case HAPPINESS:
+                        rankSum[4] += viewData.getEndMins() - viewData.getStartMins();
+                        break;
+                    case NEUTRAL:
+                        rankSum[5] += viewData.getEndMins() - viewData.getStartMins();
+                        break;
+                    case SADNESS:
+                        rankSum[6] += viewData.getEndMins() - viewData.getStartMins();
+                        break;
+                    case SURPRISE:
+                        rankSum[7] += viewData.getEndMins() - viewData.getStartMins();
+                        break;
+                }
+            }
+            int max = rankSum[0];
+            EmotionRank rankMax = EmotionRank.ANGER;
+            for (int j = 1; j < 8; j++) {
+                if (rankSum[j] > max) {
+                    max = rankSum[j];
+                    rankMax = getRankFromId(j);
+                }
+            }
+            emotionDayData.setMostOfDay(rankMax);
             dayDataList.add(emotionDayData);
         }
         EmotionWeekData emotionWeekData = new EmotionWeekData();
         emotionWeekData.setEmotionDayDataList(dayDataList);
         return emotionWeekData;
     }
+
 
     private List<EmotionViewData> generateEmotionDataOfDay(long startDayTime) {
         List<EmotionDataEntity> emotionDataEntities = getEmotionData(startDayTime,
@@ -108,7 +151,8 @@ public class EmotionData {
                 totalEmotionData.add(emotionDataEntities.get(i));
             }
             ++i;
-            if (emotionViewData.getStartMins() == emotionViewData.getEndMins()) {
+            if (emotionViewData.getStartMins() == emotionViewData.getEndMins() || emotionViewData
+                    .getEndMins() - emotionViewData.getStartMins() < 2 * MAX_GAP) {
                 continue;
             }
 
@@ -140,9 +184,9 @@ public class EmotionData {
             }
             if (totalEmotionData.getSadness() > maxValue) {
                 emotionRank = EmotionRank.SADNESS;
-                maxValue = totalEmotionData.getSadness();
             }
             emotionViewData.setRank(emotionRank);
+            emotionViewData.setTotalEmotionData(totalEmotionData);
             result.add(emotionViewData);
         }
         return result;
@@ -163,15 +207,46 @@ public class EmotionData {
 
     public static EmotionRank getRankFromId(int id) {
         switch (id) {
-            case 0: return EmotionRank.ANGER;
-            case 1: return EmotionRank.CONTEMPT;
-            case 2: return EmotionRank.DISGUST;
-            case 3: return EmotionRank.FEAR;
-            case 4: return EmotionRank.HAPPINESS;
-            case 5: return EmotionRank.NEUTRAL;
-            case 6: return EmotionRank.SADNESS;
-            case 7: return EmotionRank.SURPRISE;
+            case 0:
+                return EmotionRank.ANGER;
+            case 1:
+                return EmotionRank.CONTEMPT;
+            case 2:
+                return EmotionRank.DISGUST;
+            case 3:
+                return EmotionRank.FEAR;
+            case 4:
+                return EmotionRank.HAPPINESS;
+            case 5:
+                return EmotionRank.NEUTRAL;
+            case 6:
+                return EmotionRank.SADNESS;
+            case 7:
+                return EmotionRank.SURPRISE;
         }
         return null;
+    }
+
+    public static int getIdFromRank(EmotionRank rank) {
+        switch (rank) {
+            case ANGER:
+                return 0;
+            case CONTEMPT:
+                return 1;
+            case DISGUST:
+                return 2;
+            case FEAR:
+                return 3;
+            case HAPPINESS:
+                return 4;
+            case NEUTRAL:
+                return 5;
+            case SADNESS:
+                return 6;
+            case SURPRISE:
+                return 7;
+        }
+
+        return -1;
     }
 }
