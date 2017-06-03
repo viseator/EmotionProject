@@ -24,9 +24,6 @@ public class MainActivity extends BaseActivity {
     public void ss() {
         Intent intent = new Intent(MainActivity.this, EmotionService.class);
         startService(intent);
-        if (!(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)) {
-            requestCameraPermission();
-        }
     }
 
     private void requestCameraPermission() {
@@ -37,6 +34,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)) {
+            requestCameraPermission();
+        }
     }
 
     @Override

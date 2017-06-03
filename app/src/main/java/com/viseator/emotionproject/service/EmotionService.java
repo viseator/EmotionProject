@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -40,6 +43,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmotionService extends Service {
@@ -51,12 +55,17 @@ public class EmotionService extends Service {
     private AlarmManager alarmManager;
     private Camera camera;
     private PhotoHolder photoHolder;
+    private static ServiceBinder binder;
 
-    private String camId;
+    private class ServiceBinder extends Binder {
+        public Service getService() {
+            return EmotionService.this;
+        }
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return binder;
     }
 
     @Override
@@ -77,6 +86,9 @@ public class EmotionService extends Service {
     }
 
     private void initialService() {
+        if (binder == null) {
+            binder = new ServiceBinder();
+        }
         if (client == null) {
             client = new EmotionServiceRestClient("64130e72f5b34b19b7651c10e21703b4");
         }
@@ -94,23 +106,16 @@ public class EmotionService extends Service {
         }
         IntentFilter intentFilter = new IntentFilter("com.viseator.emotionproject.mainservice");
         registerReceiver(mainServiceReceiver, intentFilter);
-
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("com.viseator.emotionproject.mainservice");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, 0);
-        // One minute
-        Log.d(TAG, "alarmManager has been initialed");
-        sendBroadcast(broadcastIntent);
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(), 60000, pendingIntent);
+        startWork();
     }
 
     BroadcastReceiver mainServiceReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, "onReceive");
+            Log.d(TAG, "onReceive" + camera);
             if ("com.viseator.emotionproject.mainservice".equals(intent.getAction())) {
-                camera.startPreview();
-                camera.takePicture(null, null, new PhotoHolder());
+                setCamera();
+                Log.d(TAG, "ALARMING!!!!");
             }
         }
     };
@@ -124,17 +129,6 @@ public class EmotionService extends Service {
     private class PhotoHolder implements Camera.PictureCallback{
         @Override
         public void onPictureTaken(byte[] bytes, Camera camera) {
-            String fileName = getDir().getPath() + File.pathSeparator + "test.jpg";
-            Log.d(TAG, fileName);
-            File file = new File(fileName);
-            try {
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
-                fileOutputStream.write(bytes);
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             new SendRequest(bytes).execute();
         }
     }
@@ -153,8 +147,23 @@ public class EmotionService extends Service {
         protected Boolean doInBackground(String... strings) {
             Log.d(TAG, "ready to send " + bitmapBytes.length);
             Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            Bitmap proBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            proBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+
+            String fileName = getDir().getPath() + File.pathSeparator + "test.jpg";
+            Log.d(TAG, fileName);
+            File file = new File(fileName);
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(outputStream.toByteArray());
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 
             List<RecognizeResult> resultList = null;
@@ -187,5 +196,42 @@ public class EmotionService extends Service {
             }
         }
         return cam;
+    }
+
+    private void setCamera() {
+        Camera.Parameters params = camera.getParameters();
+        if (params.getMaxNumMeteringAreas() > 0){ // check that metering areas are supported
+            Log.d(TAG, "ok");
+            List<Camera.Area> meteringAreas = new ArrayList<Camera.Area>();
+            Rect areaRect1 = new Rect(-100, -100, 100, 100);    // specify an area in center of image
+            meteringAreas.add(new Camera.Area(areaRect1, 1000)); // set weight to 60%
+            params.setMeteringAreas(meteringAreas);
+        }
+        camera.setParameters(params);
+        camera.startPreview();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        camera.takePicture(null, null, new PhotoHolder());
+    }
+
+    public void startWork() {
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("com.viseator.emotionproject.mainservice");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, 0);
+        // One minute
+        Log.d(TAG, "alarmManager has been initialed");
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 5000, 60000, pendingIntent);
+    }
+
+    public void stopWork() {
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("com.viseator.emotionproject.mainservice");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, 0);
+        Log.d(TAG, "alarmManager has been stopped");
+        alarmManager.cancel(pendingIntent);
+        camera.release();
     }
 }
