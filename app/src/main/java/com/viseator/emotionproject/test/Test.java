@@ -36,9 +36,10 @@ public class Test {
             scores.contempt = Math.random();
             scores.sadness = Math.random();
             recognizeResultList.add(recognizeResult);
-
-            emotionData.addEmotionData(recognizeResultList, (long) (EmotionData.MAX_GAP
-                    * i + EmotionData.MAX_GAP * Math.random()));
+            long randomTime = (long) (EmotionData.MAX_GAP
+                    * i + EmotionData.MAX_GAP * Math.random());
+            Log.d(TAG, String.valueOf(randomTime));
+//            emotionData.addEmotionData(recognizeResultList,randomTime );
         }
 //        EmotionWeekData  weekData = emotionData.getEmotionWeekData(0, true);
 

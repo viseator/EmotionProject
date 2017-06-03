@@ -74,9 +74,7 @@ public class EmotionData {
     }
 
     public EmotionDataEntity getLastData() {
-        List<EmotionDataEntity> list = mEmotionDataEntityDao.queryBuilder().list();
-
-        return list.get(count() - 1);
+        return mEmotionDataEntityDao.queryBuilder().list().get(count() - 1);
     }
     public EmotionWeekData getEmotionWeekData(long startDayTime, boolean showRecent) {
         // TODO: 6/3/17 add not show recent
