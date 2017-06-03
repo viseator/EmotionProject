@@ -29,8 +29,15 @@
         <service
             android:name=".service.EmotionService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
+
         <activity android:name=".DetailActivity"/>
+
+        <provider
+            android:authorities="com.viseator"
+            android:name=".contentProvider.EmotionContentProvider"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
