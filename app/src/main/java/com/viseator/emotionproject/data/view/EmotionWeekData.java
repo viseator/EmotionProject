@@ -13,8 +13,8 @@ import java.util.List;
 public class EmotionWeekData {
     private List<EmotionDayData> mEmotionDayDataList;
 
-    public List<EmotionDayData> getEmotionDayDataList() {
-        return mEmotionDayDataList;
+    public EmotionDayData getEmotionDayDataList(int i) {
+        return mEmotionDayDataList.get(i);
     }
 
     public void setEmotionDayDataList(List<EmotionDayData> emotionDayDataList) {

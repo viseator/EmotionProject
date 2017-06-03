@@ -3,25 +3,23 @@ package com.viseator.emotionproject;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Interpolator;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.viseator.emotionproject.data.DayData;
-import com.viseator.emotionproject.data.TestData;
-import com.viseator.emotionproject.data.WeekData;
-
-import java.text.AttributedCharacterIterator;
+import com.viseator.emotionproject.data.view.EmotionDayData;
+import com.viseator.emotionproject.data.view.EmotionRank;
+import com.viseator.emotionproject.data.view.EmotionViewData;
+import com.viseator.emotionproject.data.view.EmotionWeekData;
 
 /**
  * Created by yanhao on 17-6-3.
  */
 
 public class DetailView extends View {
-    private WeekData weekData;
+    private EmotionWeekData weekData;
     private Paint paint;
     private WindowManager wm=(WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
     private int distance=wm.getDefaultDisplay().getWidth();
@@ -34,7 +32,7 @@ public class DetailView extends View {
         paint=new Paint();
     }
 
-    public void setWeekData(WeekData weekData){
+    public void setWeekData(EmotionWeekData weekData){
         this.weekData=weekData;
     }
 
@@ -50,37 +48,37 @@ public class DetailView extends View {
         super.onDraw(canvas);
         int a=0;
         for(;a<7;a++){
-            DayData dayData=weekData.getDayDatas(a);
-            if(dayData!=null){
-                int max=dayData.maxSize();
+            EmotionDayData dayData=weekData.getEmotionDayDataList(a);
+            if(dayData.maxSizeOfEmotionViewData()!=0){
+                int max=dayData.maxSizeOfEmotionViewData();
                 for(int b=0;b<max;b++){
-                    TestData testData=dayData.getTestDatas(b);
-                    int start=testData.getStart();
-                    int end=testData.getEnd();
-                    int rank=testData.getRank();
+                    EmotionViewData viewData=dayData.getEmotionViewDataList(b);
+                    int start=viewData.getStartMins();
+                    int end=viewData.getEndMins();
+                    EmotionRank rank= viewData.getRank();
                     switch (rank){
-                        case 0:
+                        case ANGER:
                             paint.setColor(Color.GREEN);
                             break;
-                        case 1:
+                        case CONTEMPT:
                             paint.setColor(Color.BLACK);
                             break;
-                        case 2:
+                        case DISGUST:
                             paint.setColor(Color.BLUE);
                             break;
-                        case 3:
+                        case SADNESS:
                             paint.setColor(Color.LTGRAY);
                             break;
-                        case 4:
+                        case FEAR:
                             paint.setColor(Color.CYAN);
                             break;
-                        case 5:
+                        case NEUTRAL:
                             paint.setColor(Color.DKGRAY);
                             break;
-                        case 6:
+                        case SURPRISE:
                             paint.setColor(Color.MAGENTA);
                             break;
-                        case 7:
+                        case HAPPINESS:
                             paint.setColor(Color.RED);
                             break;
                     }
@@ -103,7 +101,10 @@ public class DetailView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width=MeasureSpec.getSize(widthMeasureSpec);
+        int height=1440;
+        setMeasuredDimension(width,height);
     }
 
     @Override
