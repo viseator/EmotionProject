@@ -11,8 +11,6 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 @Entity
 public class EmotionDataEntity {
-    @Id
-    long id;
 
     private long time;
     protected double anger;
@@ -23,11 +21,10 @@ public class EmotionDataEntity {
     protected double neutral;
     protected double sadness;
     protected double surprise;
-    @Generated(hash = 1905874642)
-    public EmotionDataEntity(long id, long time, double anger, double contempt,
+    @Generated(hash = 497781017)
+    public EmotionDataEntity(long time, double anger, double contempt,
             double disgust, double fear, double happiness, double neutral,
             double sadness, double surprise) {
-        this.id = id;
         this.time = time;
         this.anger = anger;
         this.contempt = contempt;
@@ -40,12 +37,6 @@ public class EmotionDataEntity {
     }
     @Generated(hash = 1448679362)
     public EmotionDataEntity() {
-    }
-    public long getId() {
-        return this.id;
-    }
-    public void setId(long id) {
-        this.id = id;
     }
     public long getTime() {
         return this.time;
@@ -102,4 +93,3 @@ public class EmotionDataEntity {
         this.surprise = surprise;
     }
 }
-

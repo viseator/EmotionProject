@@ -10,6 +10,8 @@ import android.os.Bundle;
 import com.viseator.emotionproject.adapter.FirstFragment;
 import com.viseator.emotionproject.adapter.SecondFragment;
 import com.viseator.emotionproject.adapter.ViewPagerAdapter;
+import com.viseator.emotionproject.data.EmotionData;
+import com.viseator.emotionproject.test.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,8 @@ public class MainActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDate();
+        EmotionData emotionData = EmotionData.getInstance(getEmotionDataEntityDao());
+        Test.test(emotionData);
 
     }
 

@@ -1,6 +1,7 @@
 package com.viseator.emotionproject.data;
 
 import android.support.annotation.ArrayRes;
+import android.util.Log;
 
 import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import com.microsoft.projectoxford.emotion.contract.Scores;
@@ -20,8 +21,8 @@ import java.util.List;
  */
 
 public class EmotionData {
-    private static final long MILLS_OF_DAY = 24 * 60 * 60 * 100;
-    private static final long MAX_GAP = 15 * 60 * 100;
+    public static final long MILLS_OF_DAY = 24 * 60 * 60 * 100;
+    public static final long MAX_GAP = 15 * 60 * 100;
     private static EmotionData INSTANCE = null;
     private EmotionDataEntityDao mEmotionDataEntityDao;
     private static final String TAG = "@vir EmotionData";
@@ -46,6 +47,7 @@ public class EmotionData {
 
     public void addEmotionData(List<RecognizeResult> results, long time) {
         if (results.size() < 1) {
+            Log.d(TAG, "add data size :" + String.valueOf(results.size()));
             return;
         }
         Scores recognizeResult = results.get(0).scores;
