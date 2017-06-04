@@ -34,8 +34,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
+
+    @OnClick(R.id.commit_buttom)
+    public void commit() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (binder != null) {
+                    EmotionService service = (EmotionService) binder.getService();
+                    service.startWork();
+                }
+            }
+        }).start();
+    }
+
     private EmotionData mEmotionData;
     private EmotionChartData mEmotionChartData;
     private static final String TAG = "@vir MainActivity";

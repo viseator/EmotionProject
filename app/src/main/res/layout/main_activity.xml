@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include layout="@layout/toolbar"/>
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/tablayout_main"
+        android:layout_alignParentBottom="true" />
+
+
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/viewpager_main"/>
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/tablayout_main"/>
+        android:id="@+id/viewpager_main"
+        android:layout_above="@id/tablayout_main"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/commit_buttom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Capture!"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/commit_buttom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="340dp"/>
+
+</RelativeLayout>
