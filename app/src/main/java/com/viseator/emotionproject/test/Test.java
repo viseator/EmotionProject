@@ -23,20 +23,20 @@ public class Test {
     private static final String TAG = "@vir Test";
 
     public static void test(EmotionData emotionData) {
-        long time = (long) (System.currentTimeMillis() - EmotionData.MILLS_OF_DAY * 1);
-        while ((time += Math.random() * EmotionData.MAX_GAP*1.2 ) < System.currentTimeMillis()) {
+        long time = (long) (System.currentTimeMillis() - EmotionData.MILLS_OF_DAY * 7);
+        while ((time += Math.random() * EmotionData.MAX_GAP * 1.2) < System.currentTimeMillis()) {
             List<RecognizeResult> recognizeResultList = new ArrayList<>();
             RecognizeResult recognizeResult = new RecognizeResult();
             recognizeResult.scores = new Scores();
             Scores scores = recognizeResult.scores;
-            scores.anger = Math.random();
-            scores.disgust = Math.random();
-            scores.fear = Math.random();
-            scores.happiness = Math.random();
-            scores.neutral = Math.random();
-            scores.surprise = Math.random();
-            scores.contempt = Math.random();
-            scores.sadness = Math.random();
+            scores.anger = Math.random() < 0.125 ? 0.8 + Math.random() * 0.2 : Math.random() * 0.1;
+            scores.disgust = Math.random() < 0.125 ? 0.8 + Math.random() * 0.2 : Math.random() * 0.1;
+            scores.fear = Math.random() < 0.125 ? 0.8 + Math.random() * 0.2 : Math.random() * 0.1;
+            scores.happiness = Math.random() < 0.125 ? 0.8 + Math.random() * 0.2 : Math.random() * 0.1;
+            scores.neutral = Math.random() < 0.125 ? 0.8 + Math.random() * 0.2 : Math.random() * 0.1;
+            scores.surprise = Math.random() < 0.125 ? 0.8 + Math.random() * 0.2 : Math.random() * 0.1;
+            scores.contempt = Math.random() < 0.125 ? 0.8 + Math.random() * 0.2 : Math.random() * 0.1;
+            scores.sadness = Math.random() < 0.125 ? 0.8 + Math.random() * 0.2 : Math.random() * 0.1;
             recognizeResultList.add(recognizeResult);
             emotionData.addEmotionData(recognizeResultList, time);
         }
