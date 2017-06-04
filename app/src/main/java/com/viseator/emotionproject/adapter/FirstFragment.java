@@ -69,14 +69,14 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         pieDataSet.setColors(Color.parseColor("#61A5E8"),Color.parseColor("#E3170D"),
                 Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor("#7ECF51"), Color.parseColor
                         ("#E3935D"), Color.parseColor("#E16757"), Color.parseColor("#605FF0"));
-        pieDataSet.setValueTextSize(10);
+        pieDataSet.setValueTextSize(20f);
         PieData pieData = new PieData(pieDataSet);
         pieData.setDrawValues(false);
         mPieChart.setDrawEntryLabels(true);
         mPieChart.setDescription(null);
         mPieChart.setHoleRadius(30f);
         mPieChart.setTransparentCircleRadius(0f);
-        mPieChart.setEntryLabelTextSize(8);
+        mPieChart.setEntryLabelTextSize(15);
         mPieChart.animateXY(2000, 2000);
         mPieChart.setAlpha(0.7f);
         mPieChart.getLegend().setEnabled(false);
@@ -89,14 +89,14 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         pieDataSet.setColors(Color.parseColor("#61A5E8"),
                 Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor("#7ECF51"), Color.parseColor
                         ("#E3935D"), Color.parseColor("#E16757"), Color.parseColor("#605FF0"));
-        pieDataSet.setValueTextSize(10);
+        pieDataSet.setValueTextSize(20f);
         PieData pieData = new PieData(pieDataSet);
         pieData.setDrawValues(false);
         mPieChart.setDrawEntryLabels(true);
         mPieChart.setDescription(null);
         mPieChart.setHoleRadius(30f);
         mPieChart.setTransparentCircleRadius(0f);
-        mPieChart.setEntryLabelTextSize(8);
+        mPieChart.setEntryLabelTextSize(15);
         mPieChart.animateXY(2000, 2000);
         mPieChart.setAlpha(0.7f);
         mPieChart.getLegend().setEnabled(false);
