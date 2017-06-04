@@ -66,7 +66,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
     public void refreshPieChart() {
         mEmotionChartData = EmotionChartData.getInstance(mEmotionData);
         PieDataSet pieDataSet = new PieDataSet(mEmotionChartData.getMainPieEntries(), "");
-        pieDataSet.setColors(Color.parseColor("#61A5E8"),
+        pieDataSet.setColors(Color.parseColor("#61A5E8"),Color.parseColor("#E3170D"),
                 Color.parseColor("#EECB5F"), Color.parseColor("#9570E5"), Color.parseColor("#7ECF51"), Color.parseColor
                         ("#E3935D"), Color.parseColor("#E16757"), Color.parseColor("#605FF0"));
         pieDataSet.setValueTextSize(10);
